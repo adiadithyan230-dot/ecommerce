@@ -1,0 +1,7 @@
+flowchart LR
+    Admin[Admin] -->|Manage users, roles, datasets, reports| SYS((E-commerce Sales Insights System))
+    Analyst[Analyst] -->|Upload datasets, analyze sales, export reports| SYS
+    Viewer[Viewer] -->|View dashboard, filters, forecast, profile| SYS
+    SYS -->|KPIs, charts, forecasts, reports, messages| Admin
+    SYS -->|KPIs, charts, forecasts, exported files| Analyst
+    SYS -->|Dashboard charts and dataset previews| Viewer

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Methodology - E-commerce Insights{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 text-secondary-color"><i class="fas fa-cogs text-info me-2"></i> Methodology</h1>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="glass-card mb-4 border-start border-primary border-4">
+            <h4 class="text-secondary-color mb-3">Data Pipeline</h4>
+            <ol class="text-secondary lh-lg">
+                <li><strong>Ingestion:</strong> CSV files are uploaded via the secure Datasets dashboard.</li>
+                <li><strong>Validation & Cleaning (Cleaning Engine):</strong> The system uses Pandas to standardize column names. It validates the presence of required columns, checks for invalid date formats, and flags negative revenue values to prevent skewed analytics.</li>
+                <li><strong>Storage:</strong> The clean file is stored on disk, and its metadata is saved to the SQLite/PostgreSQL database.</li>
+                <li><strong>Processing (Analytics Engine):</strong> The active dataset is loaded into memory. When the user selects filters, Pandas applies these boolean masks dynamically.</li>
+                <li><strong>KPI Generation:</strong> Key metrics like Gross Profit Margin, Return Rates, and AOV are aggregated from the filtered dataframe.</li>
+                <li><strong>Visualization (Chart Engine):</strong> The filtered dataframe is passed to Plotly Express, generating JSON schema configurations for rich client-side rendering.</li>
+            </ol>
+        </div>
+
+        <div class="glass-card mb-4 border-start border-warning border-4">
+            <h4 class="text-secondary-color mb-3">Insight Engine (AI-Free Logic)</h4>
+            <p class="text-secondary">
+                To guarantee deterministic and reliable business advice without the overhead or hallucination risks of LLMs, the platform utilizes a rule-based insight generator.
+            </p>
+            <p class="text-secondary">
+                It operates using boundary thresholds. For example, if <code>cancellation_rate > 15%</code>, it triggers a <em>Critical Risk Alert</em> string. If <code>returning_customer_rate >= 30%</code>, it logs a <em>Good Customer Insight</em>. This ensures executives always get fast, verifiable summaries.
+            </p>
+        </div>
+
+        <div class="glass-card mb-4 border-start border-success border-4">
+            <h4 class="text-secondary-color mb-3">Machine Learning Forecasting</h4>
+            <p class="text-secondary">
+                The Forecasting module relies on <strong>Simple Linear Regression</strong> via the <code>scikit-learn</code> library. 
+            </p>
+            <ul class="text-secondary">
+                <li>Historical transaction dates are grouped by month (<code>dt.to_period('M')</code>).</li>
+                <li>Revenue and quantities are summed for each period.</li>
+                <li>A time-step index (0, 1, 2...) is created and used as the independent variable (X).</li>
+                <li>The target metric (Revenue, Product Demand) acts as the dependent variable (y).</li>
+                <li>The model is fitted and used to predict the next 3 time-steps, with values clamped to a minimum of 0.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

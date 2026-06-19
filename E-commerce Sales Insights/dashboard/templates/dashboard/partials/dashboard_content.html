@@ -1,0 +1,361 @@
+<!-- KPI Cards Row -->
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xxl-3">
+        <div class="kpi-card kpi-card-1 h-100">
+            <h6 class="text-white-50 text-uppercase small mb-1">Total Revenue</h6>
+            <h3 class="mb-0 fw-bold">Rs&nbsp;{{ kpis.total_revenue|floatformat:2 }}</h3>
+            <span class="kpi-card-icon"><i class="fas fa-dollar-sign"></i></span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl-3">
+        <div class="kpi-card kpi-card-2 h-100">
+            <h6 class="text-white-50 text-uppercase small mb-1">Total Orders</h6>
+            <h3 class="mb-0 fw-bold">{{ kpis.total_orders }}</h3>
+            <span class="kpi-card-icon"><i class="fas fa-shopping-bag"></i></span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl-3">
+        <div class="kpi-card kpi-card-3 h-100">
+            <h6 class="text-white-50 text-uppercase small mb-1">Average Order Value</h6>
+            <h3 class="mb-0 fw-bold">Rs&nbsp;{{ kpis.aov|floatformat:2 }}</h3>
+            <span class="kpi-card-icon"><i class="fas fa-calculator"></i></span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-xxl-3">
+        <div class="kpi-card kpi-card-4 h-100">
+            <h6 class="text-white-50 text-uppercase small mb-1">Cancellation Rate</h6>
+            <h3 class="mb-0 fw-bold">{{ kpis.cancellation_rate|floatformat:2 }}%</h3>
+            <span class="kpi-card-icon"><i class="fas fa-ban"></i></span>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-6 col-xxl-4">
+        <div class="glass-card py-3">
+            <h6 class="text-muted text-uppercase small mb-1">Top Region</h6>
+            <h4 class="mb-0 text-secondary-color fw-bold"><i class="fas fa-map-marker-alt text-danger me-2"></i> {{ kpis.top_region }}</h4>
+        </div>
+    </div>
+    <div class="col-md-6 col-xxl-4">
+        <div class="glass-card py-3">
+            <h6 class="text-muted text-uppercase small mb-1">Top Category</h6>
+            <h4 class="mb-0 text-secondary-color fw-bold"><i class="fas fa-tag text-info me-2"></i> {{ kpis.top_category }}</h4>
+        </div>
+    </div>
+    <div class="col-md-12 col-xxl-4">
+        <div class="glass-card py-3">
+            <h6 class="text-muted text-uppercase small mb-1">Returning Customers Rate</h6>
+            <h4 class="mb-0 text-secondary-color fw-bold"><i class="fas fa-users text-success me-2"></i> {{ kpis.returning_customer_rate|floatformat:2 }}%</h4>
+        </div>
+    </div>
+</div>
+
+<!-- AI Sales Insights -->
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="glass-card ai-insight-card">
+            <div class="ai-insight-header">
+                <div class="ai-insight-title">
+                    <span class="ai-insight-icon"><i class="fas fa-robot"></i></span>
+                    <div>
+                        <h5 class="mb-0 text-secondary-color">AI Sales Insights</h5>
+                        <span class="text-muted small">Current KPI analysis</span>
+                    </div>
+                </div>
+                <div class="ai-insight-actions">
+                    <a href="{% url 'ai_insights:history' %}" class="btn btn-outline-secondary btn-sm ai-action-btn">
+                        <i class="fas fa-clock-rotate-left me-1"></i> History
+                    </a>
+                    {% if can_generate_ai_insights %}
+                    <form method="post" action="{% url 'ai_insights:generate' %}?{{ request.GET.urlencode }}" class="ai-insight-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-sm ai-insight-submit ai-action-btn">
+                            <span class="ai-insight-label"><i class="fas fa-brain me-1"></i> Generate AI Insights</span>
+                            <span class="ai-insight-loading d-none">
+                                <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+                                Generating
+                            </span>
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if selected_ai_insight %}
+            <div class="ai-insight-result">
+                <div class="ai-insight-meta">
+                    <span class="ai-model-badge">{{ selected_ai_insight.model_name }}</span>
+                    <span class="text-muted small">{{ selected_ai_insight.created_at|date:"M d, Y H:i" }}</span>
+                </div>
+                <div class="ai-insight-output">{{ selected_ai_insight.generated_text|linebreaksbr }}</div>
+            </div>
+            {% else %}
+            <div class="ai-insight-empty">
+                {% if can_generate_ai_insights %}
+                <span>Ready to generate Executive Summary, Key Insights, Potential Issues, and Recommendations.</span>
+                {% else %}
+                <span>Your role can view saved AI insights from the history page.</span>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Chart Section Grid -->
+<div class="row g-4 mb-4">
+    <!-- Trend -->
+    <div class="col-lg-8">
+        <div class="chart-container">
+            <div id="monthlyTrendChart"></div>
+        </div>
+    </div>
+    <!-- Payment Methods -->
+    <div class="col-lg-4">
+        <div class="chart-container">
+            <div id="paymentMethodsChart"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Category Revenue -->
+    <div class="col-md-6">
+        <div class="chart-container">
+            <div id="categoryRevChart"></div>
+        </div>
+    </div>
+    <!-- Region Revenue -->
+    <div class="col-md-6">
+        <div class="chart-container">
+            <div id="regionRevChart"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Daily Trend -->
+    <div class="col-lg-8">
+        <div class="chart-container">
+            <div id="dailyTrendChart"></div>
+        </div>
+    </div>
+    <!-- Order Status -->
+    <div class="col-lg-4">
+        <div class="chart-container">
+            <div id="orderStatusChart"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <!-- Top 10 Products -->
+    <div class="col-lg-6">
+        <div class="chart-container">
+            <div id="topProductsChart"></div>
+        </div>
+    </div>
+    <!-- Heatmap -->
+    <div class="col-lg-6">
+        <div class="chart-container">
+            <div id="heatmapChart"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Forecast and AI/ML Section -->
+{% if forecast %}
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="glass-card">
+            <h5 class="text-secondary-color mb-3"><i class="fas fa-brain text-purple me-2"></i> Sales Forecast Engine (Next 3 Months Prediction)</h5>
+            <div class="row g-3">
+                {% for item in forecast %}
+                <div class="col-md-4">
+                    <div class="p-3 border rounded bg-light-subtle d-flex flex-column justify-content-between h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-secondary small fw-bold"><i class="fas fa-calendar-alt text-purple me-1"></i> {{ item.period }}</span>
+                            <div class="text-purple"><i class="fas fa-chart-line"></i></div>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Revenue</span>
+                            <h5 class="mb-0 text-success fw-bold">Rs {{ item.predicted_revenue|floatformat:2 }}</h5>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted small d-block">Top Category ({{ item.top_category }})</span>
+                            <h6 class="mb-0 text-info fw-semibold">Rs {{ item.predicted_category_revenue|floatformat:2 }}</h6>
+                        </div>
+                        <div>
+                            <span class="text-muted small d-block">Top Product Demand ({{ item.top_product }})</span>
+                            <h6 class="mb-0 text-warning fw-semibold">{{ item.predicted_product_demand }} units</h6>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="form-text text-muted mt-2">
+                Forecast calculated dynamically using linear regression trend projections based on historic monthly transaction records.
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Executive Insights Panel (AI-Free) -->
+{% if insights %}
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="glass-card border-start border-primary border-4">
+            <h5 class="text-secondary-color mb-3"><i class="fas fa-lightbulb text-warning me-2"></i> Executive Insights</h5>
+            
+            <div class="row g-4">
+                {% for category, items in insights.items %}
+                <div class="col-md-6">
+                    <h6 class="text-muted text-uppercase small mb-2 border-bottom pb-1">{{ category }}</h6>
+                    <ul class="list-group list-group-flush bg-transparent">
+                        {% for insight in items %}
+                            <li class="list-group-item bg-transparent text-secondary border-0 py-1 px-0 d-flex align-items-start">
+                                {% if insight.severity == 'good' %}
+                                    <i class="fas fa-check-circle text-success mt-1 me-2"></i>
+                                {% elif insight.severity == 'warning' %}
+                                    <i class="fas fa-exclamation-triangle text-warning mt-1 me-2"></i>
+                                {% elif insight.severity == 'critical' %}
+                                    <i class="fas fa-times-circle text-danger mt-1 me-2"></i>
+                                {% else %}
+                                    <i class="fas fa-info-circle text-info mt-1 me-2"></i>
+                                {% endif %}
+                                <span>{{ insight.text }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Data Table -->
+<div class="row">
+    <div class="col-12">
+        <div class="glass-card">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                <h5 class="mb-0 text-secondary-color">Transaction Log Details</h5>
+                {% if request.user.role == 'admin' or request.user.role == 'analyst' or request.user.is_superuser %}
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle fw-semibold" type="button" id="exportMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-download me-1"></i> Export Report
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="exportMenu">
+                        <li><a class="dropdown-item" href="{% url 'dashboard:export' 'csv' %}?{{ request.GET.urlencode }}"><i class="fas fa-file-csv me-2 text-primary"></i> Export to CSV</a></li>
+                        <li><a class="dropdown-item" href="{% url 'dashboard:export' 'excel' %}?{{ request.GET.urlencode }}"><i class="fas fa-file-excel me-2 text-success"></i> Export to Excel</a></li>
+                        <li><a class="dropdown-item" href="{% url 'dashboard:export' 'pdf' %}?{{ request.GET.urlencode }}"><i class="fas fa-file-pdf me-2 text-danger"></i> Export to PDF</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if page_obj %}
+            <div class="table-responsive mb-3">
+                <table class="table table-hover order-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Region</th>
+                            <th>Quantity</th>
+                            <th>Revenue</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in page_obj %}
+                        <tr>
+                            <td class="font-semibold">#{{ row.order_id }}</td>
+                            <td>{{ row.customer_name }}</td>
+                            <td>{{ row.product }}</td>
+                            <td><span class="badge bg-secondary-subtle text-secondary">{{ row.category }}</span></td>
+                            <td>{{ row.region }}</td>
+                            <td>{{ row.quantity }}</td>
+                            <td class="fw-bold">Rs {{ row.revenue|floatformat:2 }}</td>
+                            <td>{{ row.payment_method }}</td>
+                            <td>
+                                {% if row.order_status|lower == 'delivered' %}
+                                <span class="badge bg-success-subtle text-success">Delivered</span>
+                                {% elif row.order_status|lower == 'cancelled' %}
+                                <span class="badge bg-danger-subtle text-danger">Cancelled</span>
+                                {% elif row.order_status|lower == 'returned' %}
+                                <span class="badge bg-warning-subtle text-warning">Returned</span>
+                                {% else %}
+                                <span class="badge bg-info-subtle text-info">{{ row.order_status }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="small">{{ row.order_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Pagination -->
+            <nav aria-label="Order pagination">
+                <ul class="pagination pagination-sm justify-content-end mb-0">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <button class="page-link" 
+                                hx-get="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode }}" 
+                                hx-target="#dashboard-content" 
+                                hx-push-url="true">Previous</button>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                        <li class="page-item active" aria-current="page"><span class="page-link">{{ num }}</span></li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item">
+                            <button class="page-link" 
+                                    hx-get="?page={{ num }}&{{ request.GET.urlencode }}" 
+                                    hx-target="#dashboard-content" 
+                                    hx-push-url="true">{{ num }}</button>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <button class="page-link" 
+                                hx-get="?page={{ page_obj.next_page_number }}&{{ request.GET.urlencode }}" 
+                                hx-target="#dashboard-content" 
+                                hx-push-url="true">Next</button>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% else %}
+            <p class="text-muted text-center py-4">No records found matching filters.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Embedded Plotly Data Nodes -->
+<script type="application/json" id="monthly-trend-json">{{ monthly_trend|safe }}</script>
+<script type="application/json" id="category-rev-json">{{ category_rev|safe }}</script>
+<script type="application/json" id="region-rev-json">{{ region_rev|safe }}</script>
+<script type="application/json" id="payment-methods-json">{{ payment_methods|safe }}</script>
+<script type="application/json" id="order-status-json">{{ order_status|safe }}</script>
+<script type="application/json" id="top-products-json">{{ top_products|safe }}</script>
+<script type="application/json" id="daily-trend-json">{{ daily_trend|safe }}</script>
+<script type="application/json" id="heatmap-json">{{ heatmap|safe }}</script>

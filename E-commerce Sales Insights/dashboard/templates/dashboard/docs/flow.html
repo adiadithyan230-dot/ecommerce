@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Flow Diagram - E-commerce Insights{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 text-secondary-color"><i class="fas fa-project-diagram text-info me-2"></i> Project Flow Diagram</h1>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="glass-card mb-4 text-center p-5">
+            <p class="text-secondary mb-5">High-level architecture and data processing pipeline.</p>
+            
+            <div class="mermaid">
+                graph TD
+                A[User / Analyst] -->|Uploads CSV| B(Django Views - datasets/views.py)
+                B -->|Validates Schema| C{Cleaning Engine}
+                C -->|Invalid Data| D[Display Errors to User]
+                C -->|Valid Data| E[Save File to Media & Activate]
+                
+                E --> F[Dashboard Controller - dashboard/views.py]
+                A -->|Applies UI Filters via HTMX| F
+                
+                F -->|Loads & Filters Data| G(Data Loader)
+                G --> H(Analytics Engine)
+                
+                H -->|Calculates Metrics| I[KPI JSON]
+                H -->|Applies Linear Regression| J[Forecast JSON]
+                H -->|Rule-Based Logic| K[AI-Free Insights]
+                
+                G --> L(Chart Engine)
+                L -->|Generates JSON Configurations| M[Plotly Charts]
+                
+                I --> N[Template Rendering]
+                J --> N
+                K --> N
+                M --> N
+                
+                N -->|HTML + JS Updates| A
+                
+                I --> O[Export Engine]
+                G --> O
+                O -->|PDF / Excel| A
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+</script>
+{% endblock %}

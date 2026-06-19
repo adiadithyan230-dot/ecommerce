@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+{% block nav_admin_dashboard %}active{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid animate-fade-in">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="h3 text-secondary-color fw-bold"><i class="fas fa-shield-alt text-primary me-2"></i> System Administration</h1>
+            <p class="text-secondary">Monitor platform activity, manage user access levels, and audit uploaded e-commerce datasets.</p>
+        </div>
+    </div>
+
+    <!-- KPI Summary Cards -->
+    <div class="row mb-4">
+        <!-- Total Users -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-card admin-kpi-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase">Total Users</span>
+                        <h3 class="fw-bold mt-1 mb-0">{{ total_users }}</h3>
+                    </div>
+                    <div class="text-primary"><i class="fas fa-users fa-2x"></i></div>
+                </div>
+                <div class="tab-pane fade" id="audit-panel" role="tabpanel" aria-labelledby="audit-tab">
+                    <div class="glass-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0 text-secondary-color fw-bold">Recent Audit Events</h5>
+                            <span class="badge bg-secondary px-2 py-1 small">{{ audit_logs|length }} Recent</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr class="text-secondary small text-uppercase">
+                                        <th>Time</th>
+                                        <th>Actor</th>
+                                        <th>Action</th>
+                                        <th>Target</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for event in audit_logs %}
+                                    <tr>
+                                        <td class="text-secondary small">{{ event.created_at|date:"M d, Y H:i" }}</td>
+                                        <td>{{ event.actor.username|default:"system" }}</td>
+                                        <td><span class="badge bg-primary-subtle text-primary">{{ event.get_action_display }}</span></td>
+                                        <td class="fw-semibold">{{ event.target }}</td>
+                                        <td class="text-secondary small">{{ event.details|default:"-" }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4 text-secondary">No audit events yet.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Active Users -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-card admin-kpi-card success-border">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase">Active Users</span>
+                        <h3 class="fw-bold mt-1 mb-0">{{ active_users }}</h3>
+                    </div>
+                    <div class="text-success"><i class="fas fa-user-check fa-2x"></i></div>
+                </div>
+            </div>
+        </div>
+        <!-- Total Datasets -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-card admin-kpi-card info-border">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase">Total Datasets</span>
+                        <h3 class="fw-bold mt-1 mb-0">{{ total_datasets }}</h3>
+                    </div>
+                    <div class="text-info"><i class="fas fa-database fa-2x"></i></div>
+                </div>
+            </div>
+        </div>
+        <!-- Active Datasets -->
+        <div class="col-md-3 mb-3">
+            <div class="glass-card admin-kpi-card warning-border">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase">Active Workspace Datasets</span>
+                        <h3 class="fw-bold mt-1 mb-0">{{ active_datasets }}</h3>
+                    </div>
+                    <div class="text-warning"><i class="fas fa-file-alt fa-2x"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Tabs -->
+    <div class="row">
+        <div class="col-12">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs border-bottom mb-4" id="adminTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active fw-semibold text-secondary px-4" id="users-tab" data-bs-toggle="tab" data-bs-target="#users-panel" type="button" role="tab" aria-controls="users-panel" aria-selected="true">
+                        <i class="fas fa-users-cog me-2"></i>User Management
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link fw-semibold text-secondary px-4" id="datasets-tab" data-bs-toggle="tab" data-bs-target="#datasets-panel" type="button" role="tab" aria-controls="datasets-panel" aria-selected="false">
+                        <i class="fas fa-server me-2"></i>Dataset Registry
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link fw-semibold text-secondary px-4" id="audit-tab" data-bs-toggle="tab" data-bs-target="#audit-panel" type="button" role="tab" aria-controls="audit-panel" aria-selected="false">
+                        <i class="fas fa-clipboard-list me-2"></i>Audit Log
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab content -->
+            <div class="tab-content" id="adminTabsContent">
+                <!-- Users Panel -->
+                <div class="tab-pane fade show active" id="users-panel" role="tabpanel" aria-labelledby="users-tab">
+                    <div class="glass-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0 text-secondary-color fw-bold">Platform Accounts</h5>
+                            <span class="badge bg-secondary px-2 py-1 small">{{ users|length }} Total</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr class="text-secondary small text-uppercase">
+                                        <th scope="col">User ID</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Email Address</th>
+                                        <th scope="col">Joined Date</th>
+                                        <th scope="col">System Role</th>
+                                        <th scope="col" class="text-center">Status</th>
+                                        <th scope="col" class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for u in users %}
+                                    <tr>
+                                        <td class="fw-semibold text-primary">#{{ u.user_id }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="user-avatar-sm rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center">
+                                                    {{ u.username|slice:":1"|upper }}
+                                                </div>
+                                                <div>
+                                                    <span class="fw-bold">{{ u.username }}</span>
+                                                    {% if u == request.user %}
+                                                    <span class="badge bg-info ms-1 micro-badge">You</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-secondary small">{{ u.email }}</td>
+                                        <td class="text-secondary small">{{ u.date_joined|date:"M d, Y" }}</td>
+                                        <td>
+                                            {% if u == request.user %}
+                                            <span class="badge bg-primary badge-role">{{ u.get_role_display }}</span>
+                                            {% else %}
+                                            <form action="{% url 'users:update_user_role' u.pk %}" method="post" class="d-inline">
+                                                {% csrf_token %}
+                                                <select name="role" class="select-role" onchange="this.form.submit()">
+                                                    {% for val, label in role_choices %}
+                                                    <option value="{{ val }}" {% if u.role == val %}selected{% endif %}>{{ label }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </form>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            {% if u.is_active %}
+                                            <span class="badge bg-success-subtle text-success px-2 py-1 status-badge"><i class="fas fa-circle me-1 status-dot"></i> Active</span>
+                                            {% else %}
+                                            <span class="badge bg-danger-subtle text-danger px-2 py-1 status-badge"><i class="fas fa-circle me-1 status-dot"></i> Inactive</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="d-flex justify-content-end gap-1">
+                                                <!-- Toggle active status -->
+                                                {% if u != request.user %}
+                                                <form action="{% url 'users:toggle_user_status' u.pk %}" method="post" class="d-inline">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-sm {% if u.is_active %}btn-outline-warning{% else %}btn-outline-success{% endif %}" title="{% if u.is_active %}Deactivate{% else %}Activate{% endif %} User">
+                                                        {% if u.is_active %}
+                                                        <i class="fas fa-user-slash"></i>
+                                                        {% else %}
+                                                        <i class="fas fa-user-plus"></i>
+                                                        {% endif %}
+                                                    </button>
+                                                </form>
+                                                <!-- Delete button -->
+                                                <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal-{{ u.pk }}" title="Delete User">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datasets Panel -->
+                <div class="tab-pane fade" id="datasets-panel" role="tabpanel" aria-labelledby="datasets-tab">
+                    <div class="glass-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0 text-secondary-color fw-bold">Dataset Repository</h5>
+                            <span class="badge bg-secondary px-2 py-1 small">{{ datasets|length }} Files</span>
+                        </div>
+                        <div class="table-container">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr class="text-secondary small text-uppercase">
+                                        <th scope="col">Dataset Name</th>
+                                        <th scope="col">Uploaded By</th>
+                                        <th scope="col">Uploaded Date</th>
+                                        <th scope="col">Dimensions (Rows &times; Cols)</th>
+                                        <th scope="col" class="text-center">Status</th>
+                                        <th scope="col" class="text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for d in datasets %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="text-info"><i class="fas fa-file-csv fa-lg"></i></div>
+                                                <div>
+                                                    <span class="fw-bold">{{ d.name }}</span>
+                                                    <span class="d-block text-secondary small status-badge">{{ d.file.name }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary-subtle text-secondary badge-role">
+                                                <i class="fas fa-user me-1"></i> {{ d.uploaded_by.username }}
+                                            </span>
+                                        </td>
+                                        <td class="text-secondary small">{{ d.uploaded_at|date:"M d, Y H:i" }}</td>
+                                        <td class="text-secondary font-monospace small">
+                                            {{ d.row_count|default:"0" }} rows &times; {{ d.column_count|default:"0" }} cols
+                                        </td>
+                                        <td class="text-center">
+                                            {% if d.is_active %}
+                                            <span class="badge bg-success-subtle text-success px-2 py-1 status-badge"><i class="fas fa-check-circle me-1 status-dot"></i> Active Workspace</span>
+                                            {% else %}
+                                            <span class="badge bg-secondary-subtle text-secondary px-2 py-1 status-badge"><i class="fas fa-history me-1 status-dot"></i> Inactive</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-end">
+                                            <!-- Delete button -->
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteDatasetModal-{{ d.pk }}" title="Delete Dataset">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4 text-secondary">
+                                            <i class="fas fa-folder-open fa-2x mb-2 text-muted"></i>
+                                            <p class="mb-0">No datasets have been uploaded to the system registry.</p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals Container at root level to prevent backdrop layering issues -->
+    {% for u in users %}
+        {% if u != request.user %}
+        <!-- Delete User Modal -->
+        <div class="modal fade text-start" id="deleteUserModal-{{ u.pk }}" tabindex="-1" aria-labelledby="deleteUserModalLabel-{{ u.pk }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header border-bottom">
+                        <h5 class="modal-title fw-bold text-danger" id="deleteUserModalLabel-{{ u.pk }}"><i class="fas fa-exclamation-triangle me-2"></i> Confirm User Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body py-4">
+                        <p class="mb-2">Are you sure you want to permanently delete the user account <strong>{{ u.username }}</strong>?</p>
+                        <p class="text-secondary small mb-0">This action is irreversible. All datasets owned by this user may be orphaned or deleted.</p>
+                    </div>
+                    <div class="modal-footer border-top">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form action="{% url 'users:delete_user' u.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger px-3">Delete User</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    {% for d in datasets %}
+    <!-- Delete Dataset Modal -->
+    <div class="modal fade text-start" id="deleteDatasetModal-{{ d.pk }}" tabindex="-1" aria-labelledby="deleteDatasetModalLabel-{{ d.pk }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title fw-bold text-danger" id="deleteDatasetModalLabel-{{ d.pk }}"><i class="fas fa-exclamation-triangle me-2"></i> Confirm Dataset Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <p class="mb-2">Are you sure you want to permanently delete the dataset <strong>{{ d.name }}</strong>?</p>
+                    <p class="text-secondary small mb-0">This will remove the file from storage and erase all database records. Active dashboard analytics utilizing this dataset will reset.</p>
+                </div>
+                <div class="modal-footer border-top">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="{% url 'users:delete_dataset' d.pk %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger px-3">Delete Dataset</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

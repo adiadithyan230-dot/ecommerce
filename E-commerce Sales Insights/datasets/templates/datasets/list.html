@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Datasets History{% endblock %}
+{% block nav_datasets %}active{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/datasets.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid animate-fade-in">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h1 class="h3 text-secondary-color">Datasets History</h1>
+            <p class="text-secondary">Upload, manage, and switch between your analytical datasets.</p>
+        </div>
+        {% if request.user.role == 'admin' or request.user.role == 'analyst' or request.user.is_superuser %}
+        <a href="{% url 'datasets:upload' %}" class="btn btn-primary fw-semibold"><i class="fas fa-plus me-2"></i> Upload New CSV</a>
+        {% endif %}
+    </div>
+
+    <div class="glass-card">
+        <form method="get" class="row g-2 align-items-end mb-4">
+            <div class="col-md-5">
+                <label for="dataset-search" class="form-label small text-secondary fw-semibold">Search</label>
+                <input type="search" id="dataset-search" name="q" class="form-control form-control-sm" placeholder="Dataset name" value="{{ search_query }}">
+            </div>
+            <div class="col-md-3">
+                <label for="dataset-status" class="form-label small text-secondary fw-semibold">Status</label>
+                <select id="dataset-status" name="status" class="form-select form-select-sm">
+                    <option value="" {% if not status_filter %}selected{% endif %}>All</option>
+                    <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Active</option>
+                    <option value="inactive" {% if status_filter == 'inactive' %}selected{% endif %}>Inactive</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="dataset-sort" class="form-label small text-secondary fw-semibold">Sort</label>
+                <select id="dataset-sort" name="sort" class="form-select form-select-sm">
+                    <option value="-uploaded_at" {% if sort_filter == '-uploaded_at' %}selected{% endif %}>Newest first</option>
+                    <option value="uploaded_at" {% if sort_filter == 'uploaded_at' %}selected{% endif %}>Oldest first</option>
+                    <option value="name" {% if sort_filter == 'name' %}selected{% endif %}>Name A-Z</option>
+                    <option value="-name" {% if sort_filter == '-name' %}selected{% endif %}>Name Z-A</option>
+                    <option value="-quality_score" {% if sort_filter == '-quality_score' %}selected{% endif %}>Quality high-low</option>
+                    <option value="quality_score" {% if sort_filter == 'quality_score' %}selected{% endif %}>Quality low-high</option>
+                </select>
+            </div>
+            <div class="col-md-1 d-grid">
+                <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fas fa-filter"></i></button>
+            </div>
+        </form>
+        {% if datasets %}
+        <div class="row g-3">
+            {% for dataset in datasets %}
+            <div class="col-12">
+                <div class="dataset-item p-3 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 {% if dataset.is_active %}dataset-active-border{% endif %}">
+                    <div>
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <h5 class="mb-0 text-secondary-color font-semibold">{{ dataset.name }}</h5>
+                            {% if dataset.is_active %}
+                            <span class="badge bg-success">Active Workspace</span>
+                            {% endif %}
+                            <span class="badge bg-info-subtle text-info">{{ dataset.quality_score }}/100 {{ dataset.quality_grade }}</span>
+                        </div>
+                        <div class="text-secondary small d-flex flex-wrap gap-3">
+                            <span><i class="far fa-calendar-alt me-1"></i> Uploaded: {{ dataset.uploaded_at|date:"Y-m-d H:i" }}</span>
+                            <span><i class="fas fa-file-csv me-1"></i> Size: {{ dataset.row_count }} rows &times; {{ dataset.column_count }} cols</span>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 dataset-actions">
+                        <a href="{% url 'datasets:preview' dataset.pk %}" class="btn btn-outline-info btn-sm fw-semibold"><i class="far fa-eye me-1"></i> Preview</a>
+                        {% if request.user.role == 'admin' or request.user.role == 'analyst' or request.user.is_superuser %}
+                        {% if not dataset.is_active %}
+                        <a href="{% url 'datasets:activate' dataset.pk %}" class="btn btn-outline-success btn-sm fw-semibold"><i class="fas fa-check me-1"></i> Activate</a>
+                        {% endif %}
+                        <a href="{% url 'datasets:delete' dataset.pk %}" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <div class="mb-3 text-secondary"><i class="fas fa-database fa-3x"></i></div>
+            <h4 class="text-secondary-color">No datasets uploaded yet</h4>
+            <p class="text-secondary">Please upload an e-commerce sales dataset to start modeling and visualizing your business metrics.</p>
+            {% if request.user.role == 'admin' or request.user.role == 'analyst' or request.user.is_superuser %}
+            <a href="{% url 'datasets:upload' %}" class="btn btn-primary mt-2"><i class="fas fa-file-upload me-2"></i> Upload CSV</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

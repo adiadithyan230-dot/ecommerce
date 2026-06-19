@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dataset Description - E-commerce Insights{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 text-secondary-color"><i class="fas fa-table text-info me-2"></i> Dataset Description</h1>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="glass-card mb-4 border-start border-info border-4">
+            <h4 class="text-secondary-color mb-3">Expected Schema</h4>
+            <p class="text-secondary">
+                The application relies on a specific set of columns to perform full analytical functions. The upload validator automatically maps variations of column headers to these standard names:
+            </p>
+            
+            <div class="table-responsive mt-3">
+                <table class="table table-bordered bg-transparent">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Column Name</th>
+                            <th>Data Type</th>
+                            <th>Description</th>
+                            <th>Critical for Analysis</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-secondary">
+                        <tr>
+                            <td><code>order_id</code></td>
+                            <td>Numeric / String</td>
+                            <td>Unique identifier for the transaction.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code>customer_name</code></td>
+                            <td>String</td>
+                            <td>Name or ID of the purchasing customer. Used for returning customer rates.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code>product</code></td>
+                            <td>String</td>
+                            <td>Name of the item purchased. Used for Product Insights.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code>category</code></td>
+                            <td>String</td>
+                            <td>Broader classification of the product (e.g., Electronics, Clothing).</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code>region</code></td>
+                            <td>String</td>
+                            <td>Geographic location of the sale (e.g., North America, EU).</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code>quantity</code></td>
+                            <td>Numeric</td>
+                            <td>Number of units purchased in the transaction.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code>revenue</code></td>
+                            <td>Numeric (Float)</td>
+                            <td>Total monetary value of the transaction.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td><code>payment_method</code></td>
+                            <td>String</td>
+                            <td>Method used to pay (e.g., Credit Card, PayPal).</td>
+                            <td>Optional</td>
+                        </tr>
+                        <tr>
+                            <td><code>order_status</code></td>
+                            <td>String</td>
+                            <td>Current state of order (Delivered, Cancelled, Returned).</td>
+                            <td>Yes (For Risk Alerts)</td>
+                        </tr>
+                        <tr>
+                            <td><code>order_date</code></td>
+                            <td>Date (YYYY-MM-DD)</td>
+                            <td>Timestamp of the transaction. Vital for forecasting and trends.</td>
+                            <td>Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="glass-card border-start border-warning border-4">
+            <h4 class="text-secondary-color mb-3">Validation & Auto-Correction</h4>
+            <p class="text-secondary">
+                Our Pandas-based validation engine handles dirty data in the following ways:
+            </p>
+            <ul class="text-secondary">
+                <li><strong>Header Stripping:</strong> Leading/trailing spaces and varying capitalization (e.g., " Total Sales ") are normalized to `revenue`.</li>
+                <li><strong>Type Casting:</strong> If `revenue` contains strings (like "$500"), the upload validator flags it. If castable, Pandas forces it to numeric.</li>
+                <li><strong>Date Parsing:</strong> Invalid date strings like "32-13-2023" are identified and reported via `pd.to_datetime(errors='coerce')`.</li>
+                <li><strong>Negative Value Checks:</strong> Transactions with negative revenue or quantity trigger validation warnings, prompting the user to correct their source file.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

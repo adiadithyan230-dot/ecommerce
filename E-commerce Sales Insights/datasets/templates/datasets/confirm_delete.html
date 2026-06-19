@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Delete Dataset{% endblock %}
+{% block nav_datasets %}active{% endblock %}
+
+{% block content %}
+<div class="container-fluid animate-fade-in">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-5">
+            <div class="glass-card text-center p-4">
+                <div class="text-danger mb-3">
+                    <i class="fas fa-exclamation-triangle fa-3x animate-pulse"></i>
+                </div>
+                <h4 class="text-secondary-color mb-3">Delete Dataset?</h4>
+                <p class="text-secondary">Are you sure you want to permanently delete dataset <strong>"{{ object.name }}"</strong>? This action cannot be undone and will remove the file from storage.</p>
+                
+                <form method="post" action="{% url 'datasets:delete' object.pk %}">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+                        <a href="{% url 'datasets:list' %}" class="btn btn-outline-secondary px-4">Cancel</a>
+                        <button type="submit" class="btn btn-danger px-4 fw-semibold">Delete Dataset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

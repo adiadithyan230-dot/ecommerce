@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AI Insight History{% endblock %}
+{% block nav_ai_insights %}active{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid animate-fade-in">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <div>
+            <h3 class="mb-1 text-secondary-color fw-bold">AI Sales Insights</h3>
+            <p class="text-muted mb-0">Saved business insight history generated from dashboard KPIs.</p>
+        </div>
+        <a href="{% url 'dashboard:index' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Dashboard
+        </a>
+    </div>
+
+    <div class="glass-card ai-history-card">
+        <div class="table-responsive">
+            <table class="table table-hover order-table ai-history-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User</th>
+                        <th>Model</th>
+                        <th>Insight Preview</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for insight in insights %}
+                    <tr>
+                        <td class="small">{{ insight.created_at|date:"M d, Y H:i" }}</td>
+                        <td>{{ insight.created_by.username|default:"system" }}</td>
+                        <td><span class="ai-model-badge">{{ insight.model_name }}</span></td>
+                        <td class="text-secondary insight-preview">{{ insight.preview }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">No AI insights have been generated yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

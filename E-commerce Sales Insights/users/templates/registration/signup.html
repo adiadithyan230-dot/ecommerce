@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper animate-fade-in">
+    <div class="auth-card">
+        <div class="auth-brand">
+            <i class="fas fa-chart-line"></i> Insights.co
+        </div>
+        <div class="auth-title">Register an analyst account</div>
+        
+        {% if form.errors %}
+        <div class="alert alert-danger py-2">
+            <small>
+                {% for field, errors in form.errors.items %}
+                    <strong>{{ field }}:</strong> {{ errors|striptags }}<br>
+                {% endfor %}
+            </small>
+        </div>
+        {% endif %}
+        
+        <form method="post" action="{% url 'users:signup' %}">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <div class="form-text small text-muted">{{ field.help_text }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <div class="d-grid mb-3 mt-4">
+                <button type="submit" class="btn btn-primary py-2 fw-semibold">Create Account</button>
+            </div>
+        </form>
+        
+        <div class="text-center mt-3 small text-secondary">
+            Already have an account? <a href="{% url 'users:login' %}" class="text-primary text-decoration-none fw-semibold">Sign In</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add bootstrap classes to form fields automatically
+    document.addEventListener("DOMContentLoaded", function() {
+        const fields = document.querySelectorAll('.auth-card input, .auth-card select');
+        fields.forEach(field => {
+            if (field.type !== 'checkbox') {
+                field.classList.add('form-control');
+            } else {
+                field.classList.add('form-check-input');
+            }
+        });
+    });
+</script>
+{% endblock %}

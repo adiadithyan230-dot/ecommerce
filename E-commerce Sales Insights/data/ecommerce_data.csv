@@ -1,0 +1,201 @@
+Order ID,Customer Name,Product Category,Product Name,Quantity,Unit Price,Total Sales,Order Date,Region,Payment Method,Order Status
+ORD1079,Rekha Gupta,Books,Fiction: Midnight Library,1,719,719,2024-01-06,North,Credit Card,Delivered
+ORD1015,Pooja Iyer,Home & Kitchen,Dinner Set 12 pcs,1,4929,4929,2024-01-06,East,Net Banking,Delivered
+ORD1128,Bhavna Shah,Electronics,USB-C Hub,3,4159,12477,2024-01-13,East,Cash on Delivery,Delivered
+ORD1072,Anjali Reddy,Books,Data Science Handbook,1,739,739,2024-01-14,West,Debit Card,Shipped
+ORD1041,Tanvi Reddy,Beauty,Vitamin C Serum,1,1269,1269,2024-01-19,South,Debit Card,Delivered
+ORD1177,Aditya Joshi,Beauty,Vitamin C Serum,2,1039,2078,2024-01-23,South,Cash on Delivery,Delivered
+ORD1085,Sneha Nair,Sports,Skipping Rope,1,1319,1319,2024-01-24,East,UPI,Delivered
+ORD1180,Vivek Pillai,Sports,Skipping Rope,1,1219,1219,2024-01-27,East,UPI,Delivered
+ORD1039,Ananya Iyer,Books,Finance for Beginners,2,409,818,2024-01-27,West,Net Banking,Delivered
+ORD1102,Amit Nair,Electronics,Power Bank 20000mAh,2,3679,7358,2024-01-28,East,UPI,Delivered
+ORD1026,Karan Sharma,Home & Kitchen,LED Desk Lamp,3,4219,12657,2024-01-28,West,UPI,Cancelled
+ORD1115,Rajesh Joshi,Electronics,Wireless Earbuds,2,2959,5918,2024-01-29,East,Debit Card,Delivered
+ORD1010,Suresh Pillai,Beauty,Lipstick Matte,2,809,1618,2024-01-29,North,Net Banking,Delivered
+ORD1031,Sneha Reddy,Electronics,Wireless Earbuds,2,2869,5738,2024-01-30,West,UPI,Cancelled
+ORD1046,Shreya Joshi,Home & Kitchen,Vacuum Cleaner Mini,2,2679,5358,2024-02-05,West,UPI,Cancelled
+ORD1007,Suresh Pillai,Electronics,USB-C Hub,1,2669,2669,2024-02-10,North,Debit Card,Delivered
+ORD1161,Simran Pillai,Sports,Resistance Bands Set,1,2339,2339,2024-02-10,East,UPI,Delivered
+ORD1032,Divya Patel,Clothing,Men's T-Shirt,1,1239,1239,2024-02-11,North,UPI,Delivered
+ORD1172,Komal Iyer,Beauty,Vitamin C Serum,1,829,829,2024-02-11,South,Cash on Delivery,Delivered
+ORD1183,Tanvi Gupta,Books,Self Help: Atomic Habits,4,539,2156,2024-02-11,North,Debit Card,Delivered
+ORD1096,Ravi Sharma,Sports,Water Bottle 1L,1,1989,1989,2024-02-11,West,UPI,Delivered
+ORD1091,Rahul Gupta,Clothing,Sports Shorts,1,1549,1549,2024-02-11,South,UPI,Delivered
+ORD1181,Rahul Kumar,Sports,Dumbbells 5kg Pair,1,1369,1369,2024-02-12,West,Cash on Delivery,Delivered
+ORD1145,Ananya Mehta,Home & Kitchen,Electric Kettle,1,1149,1149,2024-02-13,North,UPI,Delivered
+ORD1054,Rajesh Nair,Beauty,Vitamin C Serum,4,1499,5996,2024-02-13,East,Credit Card,Pending
+ORD1114,Nisha Patel,Beauty,Eyeshadow Palette,3,609,1827,2024-02-16,North,Debit Card,Shipped
+ORD1163,Neha Kumar,Beauty,Vitamin C Serum,2,629,1258,2024-02-22,South,Credit Card,Delivered
+ORD1148,Sanjay Pillai,Beauty,Perfume 50ml EDP,2,609,1218,2024-02-25,East,Credit Card,Delivered
+ORD1187,Swati Reddy,Sports,Water Bottle 1L,3,459,1377,2024-02-26,North,UPI,Delivered
+ORD1138,Vikram Verma,Clothing,Summer Dress,2,1279,2558,2024-02-28,West,Net Banking,Delivered
+ORD1087,Vikram Mehta,Electronics,Laptop Stand,2,4209,8418,2024-02-28,West,Credit Card,Delivered
+ORD1095,Pallavi Bose,Sports,Running Shoes,3,1999,5997,2024-03-04,East,UPI,Returned
+ORD1195,Tanvi Mehta,Electronics,Mechanical Keyboard,1,2539,2539,2024-03-04,West,UPI,Cancelled
+ORD1141,Shreya Reddy,Sports,Skipping Rope,5,469,2345,2024-03-05,East,Debit Card,Delivered
+ORD1070,Vivek Iyer,Electronics,Smartphone Case,5,2249,11245,2024-03-05,North,UPI,Delivered
+ORD1184,Rohan Kumar,Beauty,Sunscreen SPF50,3,449,1347,2024-03-11,West,UPI,Delivered
+ORD1012,Meena Bose,Home & Kitchen,Air Fryer 3L,5,2569,12845,2024-03-12,East,UPI,Delivered
+ORD1094,Vikram Sharma,Beauty,Vitamin C Serum,2,689,1378,2024-03-13,South,Net Banking,Delivered
+ORD1200,Ravi Iyer,Beauty,Vitamin C Serum,3,209,627,2024-03-14,West,Credit Card,Delivered
+ORD1136,Arjun Nair,Clothing,Men's T-Shirt,1,769,769,2024-03-15,East,Net Banking,Delivered
+ORD1131,Aditya Iyer,Beauty,Beard Grooming Kit,1,1349,1349,2024-03-20,North,Net Banking,Delivered
+ORD1153,Rahul Das,Sports,Dumbbells 5kg Pair,1,409,409,2024-03-20,North,UPI,Delivered
+ORD1040,Gaurav Nair,Books,Business Strategy,1,419,419,2024-03-23,West,UPI,Delivered
+ORD1043,Divya Shah,Home & Kitchen,Air Fryer 3L,1,2339,2339,2024-03-24,West,Credit Card,Shipped
+ORD1071,Ravi Reddy,Beauty,Eyeshadow Palette,3,899,2697,2024-03-26,North,Net Banking,Delivered
+ORD1116,Ananya Reddy,Home & Kitchen,Air Fryer 3L,3,1789,5367,2024-03-30,West,UPI,Delivered
+ORD1150,Shreya Bose,Beauty,Eyeshadow Palette,1,209,209,2024-04-02,East,Cash on Delivery,Delivered
+ORD1109,Meena Reddy,Home & Kitchen,Stainless Steel Bottle,1,3039,3039,2024-04-06,West,Credit Card,Shipped
+ORD1027,Akash Verma,Electronics,USB-C Hub,1,1869,1869,2024-04-07,South,Debit Card,Delivered
+ORD1084,Rajesh Gupta,Sports,Running Shoes,1,609,609,2024-04-09,East,Credit Card,Delivered
+ORD1055,Neha Sharma,Clothing,Sports Shorts,2,659,1318,2024-04-11,North,Credit Card,Delivered
+ORD1124,Arjun Das,Beauty,Beard Grooming Kit,1,509,509,2024-04-12,East,UPI,Returned
+ORD1193,Rohan Das,Home & Kitchen,Non-Stick Cookware Set,4,2799,11196,2024-04-13,South,Cash on Delivery,Delivered
+ORD1156,Anjali Gupta,Sports,Yoga Mat,1,229,229,2024-04-14,South,Net Banking,Delivered
+ORD1042,Meena Iyer,Books,Python Programming Guide,1,519,519,2024-04-17,North,Debit Card,Delivered
+ORD1134,Ravi Sharma,Home & Kitchen,Electric Kettle,1,5829,5829,2024-04-18,North,Net Banking,Delivered
+ORD1132,Gaurav Verma,Books,Python Programming Guide,1,529,529,2024-04-21,South,Cash on Delivery,Delivered
+ORD1023,Aarav Patel,Sports,Badminton Racket Set,1,2609,2609,2024-04-22,North,Credit Card,Returned
+ORD1013,Arjun Nair,Sports,Resistance Bands Set,3,1679,5037,2024-04-22,West,Credit Card,Delivered
+ORD1139,Bhavna Sharma,Electronics,Power Bank 20000mAh,1,4429,4429,2024-04-23,East,UPI,Pending
+ORD1130,Akash Singh,Home & Kitchen,Electric Kettle,2,1199,2398,2024-04-30,West,UPI,Shipped
+ORD1024,Shreya Iyer,Books,Data Science Handbook,1,679,679,2024-05-01,West,Credit Card,Delivered
+ORD1019,Sachin Patel,Books,Self Help: Atomic Habits,1,209,209,2024-05-03,North,UPI,Cancelled
+ORD1036,Tanvi Kumar,Clothing,Formal Shirt,3,339,1017,2024-05-05,South,Debit Card,Delivered
+ORD1009,Rahul Verma,Electronics,Smartphone Case,2,4669,9338,2024-05-05,West,Debit Card,Returned
+ORD1122,Arjun Iyer,Beauty,Lipstick Matte,4,1419,5676,2024-05-08,North,Cash on Delivery,Delivered
+ORD1101,Deepak Patel,Home & Kitchen,Electric Kettle,1,2979,2979,2024-05-09,West,Cash on Delivery,Cancelled
+ORD1068,Ananya Verma,Home & Kitchen,Dinner Set 12 pcs,3,3849,11547,2024-05-09,North,UPI,Delivered
+ORD1190,Priya Joshi,Beauty,Beard Grooming Kit,1,909,909,2024-05-09,North,Debit Card,Shipped
+ORD1067,Mohit Joshi,Home & Kitchen,Air Fryer 3L,1,809,809,2024-05-13,South,UPI,Delivered
+ORD1047,Divya Reddy,Books,Python Programming Guide,1,269,269,2024-05-13,East,Credit Card,Delivered
+ORD1034,Simran Singh,Beauty,Sunscreen SPF50,4,639,2556,2024-05-15,East,UPI,Returned
+ORD1093,Komal Iyer,Home & Kitchen,Electric Kettle,3,2309,6927,2024-05-15,South,Debit Card,Delivered
+ORD1005,Rohan Bose,Books,History of India,1,769,769,2024-05-15,West,UPI,Pending
+ORD1044,Rahul Das,Books,Machine Learning Basics,4,399,1596,2024-05-16,North,Debit Card,Delivered
+ORD1103,Preeti Singh,Home & Kitchen,Non-Stick Cookware Set,1,2069,2069,2024-05-16,East,Debit Card,Shipped
+ORD1001,Meena Gupta,Beauty,Hair Serum 100ml,1,199,199,2024-05-20,South,UPI,Shipped
+ORD1107,Aditya Joshi,Beauty,Vitamin C Serum,1,289,289,2024-05-21,East,Net Banking,Delivered
+ORD1004,Neha Gupta,Clothing,Summer Dress,2,899,1798,2024-05-22,East,Credit Card,Delivered
+ORD1077,Gaurav Gupta,Books,Self Help: Atomic Habits,3,239,717,2024-05-22,West,UPI,Shipped
+ORD1038,Ravi Gupta,Beauty,Vitamin C Serum,1,709,709,2024-05-24,East,Credit Card,Delivered
+ORD1179,Mohit Nair,Beauty,Perfume 50ml EDP,4,1089,4356,2024-05-24,West,Cash on Delivery,Cancelled
+ORD1155,Komal Verma,Books,Machine Learning Basics,5,259,1295,2024-05-25,East,Credit Card,Delivered
+ORD1186,Meena Kumar,Clothing,Summer Dress,2,429,858,2024-05-27,North,Credit Card,Delivered
+ORD1006,Bhavna Shah,Home & Kitchen,Electric Kettle,1,4919,4919,2024-05-30,East,UPI,Shipped
+ORD1120,Rajesh Sharma,Home & Kitchen,Vacuum Cleaner Mini,2,5109,10218,2024-05-31,West,Debit Card,Delivered
+ORD1017,Manish Reddy,Sports,Dumbbells 5kg Pair,1,2759,2759,2024-06-01,South,Credit Card,Shipped
+ORD1037,Karan Shah,Books,Python Programming Guide,1,719,719,2024-06-02,South,Debit Card,Cancelled
+ORD1050,Pooja Bose,Beauty,Sunscreen SPF50,1,1419,1419,2024-06-09,East,UPI,Shipped
+ORD1011,Kavya Iyer,Electronics,USB-C Hub,1,4939,4939,2024-06-10,West,Debit Card,Returned
+ORD1165,Neha Verma,Beauty,Sunscreen SPF50,1,1429,1429,2024-06-10,North,UPI,Delivered
+ORD1018,Swati Sharma,Sports,Yoga Mat,2,2649,5298,2024-06-14,North,Cash on Delivery,Cancelled
+ORD1078,Divya Verma,Books,Python Programming Guide,1,659,659,2024-06-15,South,Debit Card,Delivered
+ORD1171,Karan Nair,Electronics,Mechanical Keyboard,2,839,1678,2024-06-17,West,Debit Card,Shipped
+ORD1191,Arjun Sharma,Beauty,Hair Serum 100ml,1,1339,1339,2024-06-19,East,UPI,Cancelled
+ORD1065,Simran Bose,Home & Kitchen,Non-Stick Cookware Set,1,3579,3579,2024-06-21,South,Net Banking,Returned
+ORD1008,Kavya Iyer,Books,Business Strategy,3,529,1587,2024-06-30,East,UPI,Shipped
+ORD1137,Meena Reddy,Electronics,Smartphone Case,2,419,838,2024-07-02,East,Credit Card,Delivered
+ORD1189,Vikram Nair,Beauty,Hair Serum 100ml,2,1219,2438,2024-07-03,North,Debit Card,Delivered
+ORD1075,Pallavi Bose,Home & Kitchen,Electric Kettle,2,3949,7898,2024-07-04,South,Debit Card,Shipped
+ORD1127,Nikhil Reddy,Books,Data Science Handbook,3,609,1827,2024-07-07,West,Net Banking,Returned
+ORD1170,Rajesh Mehta,Home & Kitchen,Air Fryer 3L,2,3379,6758,2024-07-09,West,Net Banking,Shipped
+ORD1089,Gaurav Shah,Sports,Badminton Racket Set,4,2339,9356,2024-07-13,West,Debit Card,Delivered
+ORD1158,Rohan Mehta,Sports,Cycling Helmet,3,489,1467,2024-07-22,North,UPI,Delivered
+ORD1159,Aditya Kumar,Books,Machine Learning Basics,1,739,739,2024-07-26,North,Debit Card,Pending
+ORD1100,Swati Kumar,Electronics,Smartphone Case,1,2999,2999,2024-07-29,West,Net Banking,Delivered
+ORD1062,Aditya Joshi,Beauty,Lipstick Matte,1,279,279,2024-07-31,West,Debit Card,Delivered
+ORD1003,Suresh Verma,Electronics,USB-C Hub,2,4759,9518,2024-08-02,East,Net Banking,Delivered
+ORD1152,Pallavi Joshi,Electronics,USB-C Hub,1,3379,3379,2024-08-02,South,Debit Card,Shipped
+ORD1002,Rohan Sharma,Sports,Dumbbells 5kg Pair,5,2619,13095,2024-08-04,North,Credit Card,Delivered
+ORD1057,Suresh Singh,Beauty,Face Moisturizer SPF30,1,369,369,2024-08-05,West,Credit Card,Delivered
+ORD1144,Deepak Iyer,Beauty,Hair Serum 100ml,1,789,789,2024-08-06,East,Debit Card,Delivered
+ORD1140,Karan Verma,Electronics,Power Bank 20000mAh,5,3589,17945,2024-08-06,West,Credit Card,Delivered
+ORD1198,Rahul Bose,Books,Finance for Beginners,4,769,3076,2024-08-06,West,Debit Card,Delivered
+ORD1074,Tanvi Patel,Electronics,Mechanical Keyboard,3,4659,13977,2024-08-07,East,Credit Card,Delivered
+ORD1188,Aarav Reddy,Beauty,Vitamin C Serum,2,739,1478,2024-08-07,East,Credit Card,Delivered
+ORD1157,Divya Singh,Electronics,Wireless Earbuds,2,4369,8738,2024-08-08,West,UPI,Delivered
+ORD1111,Karan Nair,Sports,Cycling Helmet,1,609,609,2024-08-13,West,Credit Card,Delivered
+ORD1053,Gaurav Iyer,Sports,Cycling Helmet,4,2099,8396,2024-08-14,South,UPI,Shipped
+ORD1108,Akash Verma,Books,Finance for Beginners,3,299,897,2024-08-16,East,Debit Card,Shipped
+ORD1059,Rahul Bose,Sports,Resistance Bands Set,1,2439,2439,2024-08-16,West,UPI,Shipped
+ORD1182,Sanjay Shah,Home & Kitchen,Electric Kettle,1,2219,2219,2024-08-18,North,Debit Card,Delivered
+ORD1022,Pooja Gupta,Books,Finance for Beginners,1,679,679,2024-08-19,South,Credit Card,Delivered
+ORD1143,Suresh Mehta,Sports,Badminton Racket Set,1,1959,1959,2024-08-19,East,Net Banking,Delivered
+ORD1016,Aarav Bose,Books,Machine Learning Basics,1,309,309,2024-08-20,East,Cash on Delivery,Shipped
+ORD1030,Rajesh Mehta,Electronics,Webcam HD,1,2469,2469,2024-08-20,West,Credit Card,Delivered
+ORD1119,Anjali Gupta,Books,Machine Learning Basics,4,399,1596,2024-08-21,West,Cash on Delivery,Delivered
+ORD1106,Preeti Singh,Home & Kitchen,Stainless Steel Bottle,1,2399,2399,2024-08-21,West,Credit Card,Delivered
+ORD1045,Sanjay Kumar,Home & Kitchen,Water Purifier Filter,1,2029,2029,2024-08-23,South,Credit Card,Shipped
+ORD1117,Nikhil Verma,Sports,Skipping Rope,3,1149,3447,2024-08-24,East,UPI,Cancelled
+ORD1058,Rekha Nair,Electronics,Power Bank 20000mAh,1,1389,1389,2024-08-25,East,Cash on Delivery,Cancelled
+ORD1112,Nikhil Joshi,Beauty,Vitamin C Serum,1,299,299,2024-08-28,West,UPI,Cancelled
+ORD1098,Rekha Iyer,Books,Python Programming Guide,1,329,329,2024-08-28,West,Cash on Delivery,Delivered
+ORD1092,Rajesh Sharma,Home & Kitchen,Stainless Steel Bottle,2,5259,10518,2024-08-28,South,Debit Card,Delivered
+ORD1025,Aditya Gupta,Sports,Water Bottle 1L,1,1189,1189,2024-08-30,North,Credit Card,Delivered
+ORD1194,Nikhil Sharma,Books,Machine Learning Basics,2,699,1398,2024-08-30,South,Debit Card,Cancelled
+ORD1192,Divya Das,Clothing,Woollen Sweater,4,1619,6476,2024-09-02,South,Credit Card,Shipped
+ORD1125,Rajesh Bose,Clothing,Sports Shorts,1,1889,1889,2024-09-03,East,Net Banking,Delivered
+ORD1060,Meena Kumar,Beauty,Eyeshadow Palette,1,1219,1219,2024-09-05,West,Credit Card,Delivered
+ORD1029,Vivek Gupta,Clothing,Denim Jeans,2,1029,2058,2024-09-05,West,Cash on Delivery,Delivered
+ORD1175,Amit Gupta,Clothing,Formal Shirt,2,1769,3538,2024-09-05,South,Credit Card,Delivered
+ORD1099,Ananya Verma,Sports,Resistance Bands Set,1,2799,2799,2024-09-08,East,Debit Card,Delivered
+ORD1196,Swati Joshi,Home & Kitchen,Vacuum Cleaner Mini,1,1929,1929,2024-09-11,East,Net Banking,Shipped
+ORD1121,Rajesh Das,Beauty,Face Moisturizer SPF30,3,1389,4167,2024-09-11,South,UPI,Delivered
+ORD1166,Vikram Kumar,Books,Python Programming Guide,3,509,1527,2024-09-16,West,UPI,Delivered
+ORD1049,Akash Iyer,Electronics,Webcam HD,2,309,618,2024-09-23,South,Debit Card,Delivered
+ORD1178,Meena Kumar,Beauty,Perfume 50ml EDP,1,629,629,2024-09-30,West,Cash on Delivery,Delivered
+ORD1083,Divya Gupta,Clothing,Formal Shirt,1,439,439,2024-10-01,South,UPI,Delivered
+ORD1076,Vivek Verma,Beauty,Eyeshadow Palette,2,1409,2818,2024-10-02,West,Net Banking,Delivered
+ORD1064,Akash Das,Books,Machine Learning Basics,1,579,579,2024-10-02,South,UPI,Delivered
+ORD1061,Ananya Singh,Books,History of India,1,479,479,2024-10-03,South,Credit Card,Shipped
+ORD1197,Rajesh Joshi,Electronics,Webcam HD,2,1779,3558,2024-10-06,North,Credit Card,Shipped
+ORD1118,Rahul Patel,Home & Kitchen,Dinner Set 12 pcs,1,5949,5949,2024-10-06,West,Cash on Delivery,Pending
+ORD1028,Karan Sharma,Clothing,Women's Kurti,2,1109,2218,2024-10-08,North,Cash on Delivery,Returned
+ORD1051,Arjun Gupta,Books,Machine Learning Basics,5,449,2245,2024-10-10,West,UPI,Delivered
+ORD1135,Kavya Reddy,Clothing,Casual Hoodie,4,339,1356,2024-10-10,South,Net Banking,Delivered
+ORD1149,Bhavna Reddy,Clothing,Summer Dress,1,1929,1929,2024-10-14,North,UPI,Shipped
+ORD1146,Preeti Joshi,Clothing,Men's T-Shirt,1,1399,1399,2024-10-14,North,Debit Card,Cancelled
+ORD1088,Anjali Patel,Electronics,Smartphone Case,2,1519,3038,2024-10-15,South,Credit Card,Shipped
+ORD1052,Anjali Mehta,Beauty,Vitamin C Serum,3,1409,4227,2024-10-18,North,Debit Card,Delivered
+ORD1168,Amit Joshi,Beauty,Face Moisturizer SPF30,1,1069,1069,2024-10-19,West,UPI,Pending
+ORD1086,Rajesh Verma,Home & Kitchen,Electric Kettle,1,499,499,2024-10-20,West,Debit Card,Delivered
+ORD1123,Tanvi Bose,Books,Finance for Beginners,1,179,179,2024-10-23,South,Credit Card,Delivered
+ORD1066,Sachin Iyer,Sports,Yoga Mat,2,1809,3618,2024-10-30,North,Credit Card,Delivered
+ORD1173,Ananya Kumar,Beauty,Beard Grooming Kit,2,409,818,2024-10-31,West,UPI,Delivered
+ORD1147,Anjali Joshi,Home & Kitchen,Non-Stick Cookware Set,2,2759,5518,2024-11-03,North,UPI,Delivered
+ORD1142,Nisha Patel,Books,Finance for Beginners,1,669,669,2024-11-05,North,Cash on Delivery,Shipped
+ORD1154,Gaurav Mehta,Beauty,Beard Grooming Kit,1,1139,1139,2024-11-06,East,Credit Card,Delivered
+ORD1048,Manish Patel,Books,History of India,2,599,1198,2024-11-06,West,Cash on Delivery,Delivered
+ORD1167,Ravi Nair,Books,Data Science Handbook,1,239,239,2024-11-10,West,UPI,Delivered
+ORD1185,Aarav Shah,Beauty,Perfume 50ml EDP,1,1069,1069,2024-11-11,North,Credit Card,Delivered
+ORD1176,Arjun Reddy,Electronics,Wireless Earbuds,1,3059,3059,2024-11-12,West,Credit Card,Delivered
+ORD1033,Ananya Mehta,Electronics,USB-C Hub,1,619,619,2024-11-13,East,Cash on Delivery,Delivered
+ORD1090,Sneha Reddy,Home & Kitchen,Dinner Set 12 pcs,1,5059,5059,2024-11-13,North,Cash on Delivery,Delivered
+ORD1035,Sachin Patel,Electronics,Wireless Earbuds,5,4049,20245,2024-11-14,North,UPI,Delivered
+ORD1113,Swati Pillai,Beauty,Beard Grooming Kit,4,799,3196,2024-11-16,North,UPI,Delivered
+ORD1164,Swati Verma,Beauty,Hair Serum 100ml,2,509,1018,2024-11-17,West,UPI,Cancelled
+ORD1056,Sachin Gupta,Electronics,Power Bank 20000mAh,4,3689,14756,2024-11-18,West,UPI,Delivered
+ORD1162,Pooja Nair,Clothing,Women's Kurti,2,1239,2478,2024-11-20,South,Cash on Delivery,Delivered
+ORD1199,Sneha Patel,Books,Machine Learning Basics,4,429,1716,2024-11-23,West,Debit Card,Cancelled
+ORD1133,Sanjay Sharma,Beauty,Sunscreen SPF50,1,1259,1259,2024-11-26,West,Debit Card,Pending
+ORD1080,Swati Verma,Sports,Badminton Racket Set,1,2149,2149,2024-11-26,North,Credit Card,Delivered
+ORD1105,Neha Verma,Electronics,Power Bank 20000mAh,4,1259,5036,2024-11-27,East,UPI,Delivered
+ORD1129,Aditya Patel,Electronics,Power Bank 20000mAh,1,2769,2769,2024-11-28,South,Credit Card,Delivered
+ORD1069,Rohan Das,Books,Self Help: Atomic Habits,1,219,219,2024-11-29,North,Cash on Delivery,Delivered
+ORD1151,Simran Patel,Clothing,Denim Jeans,4,1359,5436,2024-12-02,South,UPI,Pending
+ORD1020,Vivek Nair,Sports,Skipping Rope,1,719,719,2024-12-03,South,Debit Card,Cancelled
+ORD1081,Komal Joshi,Beauty,Lipstick Matte,3,779,2337,2024-12-05,West,UPI,Delivered
+ORD1174,Nisha Nair,Clothing,Women's Kurti,1,1519,1519,2024-12-09,East,Credit Card,Delivered
+ORD1097,Sachin Reddy,Electronics,Bluetooth Speaker,2,2169,4338,2024-12-11,North,Cash on Delivery,Shipped
+ORD1126,Simran Pillai,Electronics,Smartphone Case,1,2149,2149,2024-12-12,East,Credit Card,Delivered
+ORD1014,Nisha Reddy,Electronics,Smartphone Case,1,1609,1609,2024-12-14,North,Debit Card,Delivered
+ORD1160,Tanvi Patel,Clothing,Woollen Sweater,2,1899,3798,2024-12-19,West,Net Banking,Delivered
+ORD1021,Amit Bose,Home & Kitchen,Water Purifier Filter,2,4819,9638,2024-12-19,East,Debit Card,Shipped
+ORD1073,Anjali Pillai,Electronics,USB-C Hub,1,1129,1129,2024-12-22,North,Net Banking,Delivered
+ORD1063,Priya Pillai,Home & Kitchen,LED Desk Lamp,3,5179,15537,2024-12-22,West,UPI,Returned
+ORD1082,Pallavi Kumar,Beauty,Sunscreen SPF50,2,869,1738,2024-12-25,East,Debit Card,Delivered
+ORD1110,Mohit Mehta,Electronics,Mechanical Keyboard,1,4169,4169,2024-12-27,South,UPI,Delivered
+ORD1104,Rahul Kumar,Electronics,Wireless Earbuds,2,2259,4518,2024-12-29,North,UPI,Delivered
+ORD1169,Ananya Nair,Home & Kitchen,Electric Kettle,1,3209,3209,2024-12-31,South,Credit Card,Shipped

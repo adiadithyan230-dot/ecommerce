@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard Analytics{% endblock %}
+{% block nav_dashboard %}active{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid animate-fade-in">
+    {% if no_data %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-7 text-center">
+            <div class="glass-card py-5 px-4">
+                <div class="text-secondary mb-3"><i class="fas fa-file-invoice-dollar fa-4x text-primary"></i></div>
+                <h3 class="text-secondary-color fw-bold">Analytics Platform Ready</h3>
+                <p class="text-secondary mb-4">You have successfully initialized the enterprise analytics environment. To get started, please upload a transactional e-commerce dataset.</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{% url 'datasets:upload' %}" class="btn btn-primary fw-semibold"><i class="fas fa-file-upload me-2"></i> Upload CSV</a>
+                    <a href="{% url 'datasets:list' %}" class="btn btn-outline-secondary">Check Datasets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <!-- Sidebar Filter controls -->
+        <div class="col-lg-3 mb-4">
+            <div class="filter-sidebar">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                    <div class="d-flex align-items-center">
+                        <h5 class="mb-0 text-secondary-color fw-bold"><i class="fas fa-filter text-primary me-2"></i> Filter Console</h5>
+                        <span class="htmx-indicator spinner-border spinner-border-sm text-primary ms-3" id="filter-loading" role="status"></span>
+                    </div>
+                    <a href="{% url 'dashboard:index' %}" class="btn btn-link btn-sm text-secondary p-0 text-decoration-none">Reset All</a>
+                </div>
+
+                {% if date_presets %}
+                <div class="mb-3">
+                    <label class="form-label small text-secondary fw-semibold">Quick Dates</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for preset in date_presets %}
+                        <a href="{% url 'dashboard:index' %}?{{ preset.query }}" class="btn btn-outline-secondary btn-sm">{{ preset.label }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if saved_filter_views %}
+                <div class="mb-3">
+                    <label class="form-label small text-secondary fw-semibold">Saved Views</label>
+                    <div class="d-grid gap-2">
+                        {% for saved in saved_filter_views %}
+                        <a href="{% url 'dashboard:index' %}?{{ saved.query_string }}" class="btn btn-outline-secondary btn-sm text-start">
+                            <i class="fas fa-bookmark me-1 text-primary"></i>{{ saved.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <form method="post" action="{% url 'dashboard:save_filter' %}" class="mb-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="query_string" value="{{ request.GET.urlencode }}">
+                    <label for="saved-filter-name" class="form-label small text-secondary fw-semibold">Save Current View</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" name="name" id="saved-filter-name" class="form-control" placeholder="North Region Electronics">
+                        <button class="btn btn-outline-primary" type="submit"><i class="fas fa-save"></i></button>
+                    </div>
+                </form>
+                
+                <form id="filterForm" hx-get="{% url 'dashboard:index' %}" hx-target="#dashboard-content" hx-indicator="#filter-loading" hx-trigger="change, keyup delay:300ms from:#product-search" hx-push-url="true">
+                    <!-- Product Search -->
+                    <div class="mb-3">
+                        <label for="product-search" class="form-label small text-secondary fw-semibold">Search Product</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" name="product_search" id="product-search" class="form-control form-control-sm" placeholder="Search product name..." value="{{ active_filters.product_search|default:'' }}">
+                        </div>
+                    </div>
+
+                    <!-- Date range -->
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Date Range</label>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <input type="date" name="date_start" class="form-control form-control-sm" value="{{ active_filters.date_start|default:'' }}" placeholder="Start Date">
+                            </div>
+                            <div class="col-6">
+                                <input type="date" name="date_end" class="form-control form-control-sm" value="{{ active_filters.date_end|default:'' }}" placeholder="End Date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Region selection -->
+                    {% if filter_options.regions %}
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Region</label>
+                        <div class="border rounded p-2 filter-scroll">
+                            {% for reg in filter_options.regions %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="region" value="{{ reg }}" id="reg-{{ forloop.counter }}" {% if reg in active_filters.region %}checked{% endif %}>
+                                <label class="form-check-label small text-secondary" for="reg-{{ forloop.counter }}">{{ reg }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Category selection -->
+                    {% if filter_options.categories %}
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Category</label>
+                        <div class="border rounded p-2 filter-scroll">
+                            {% for cat in filter_options.categories %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="category" value="{{ cat }}" id="cat-{{ forloop.counter }}" {% if cat in active_filters.category %}checked{% endif %}>
+                                <label class="form-check-label small text-secondary" for="cat-{{ forloop.counter }}">{{ cat }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Payment methods selection -->
+                    {% if filter_options.payment_methods %}
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Payment Methods</label>
+                        <div class="border rounded p-2 filter-scroll">
+                            {% for pay in filter_options.payment_methods %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="payment_method" value="{{ pay }}" id="pay-{{ forloop.counter }}" {% if pay in active_filters.payment_method %}checked{% endif %}>
+                                <label class="form-check-label small text-secondary" for="pay-{{ forloop.counter }}">{{ pay }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Order status selection -->
+                    {% if filter_options.order_statuses %}
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Order Status</label>
+                        <div class="border rounded p-2 filter-scroll">
+                            {% for stat in filter_options.order_statuses %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="order_status" value="{{ stat }}" id="stat-{{ forloop.counter }}" {% if stat in active_filters.order_status %}checked{% endif %}>
+                                <label class="form-check-label small text-secondary" for="stat-{{ forloop.counter }}">{{ stat }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Revenue range selection -->
+                    <div class="mb-3">
+                        <label class="form-label small text-secondary fw-semibold">Revenue Range</label>
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <input type="number" name="revenue_min" class="form-control form-control-sm" placeholder="Min" value="{{ active_filters.revenue_min|default:'' }}">
+                            </div>
+                            <div class="col-6">
+                                <input type="number" name="revenue_max" class="form-control form-control-sm" placeholder="Max" value="{{ active_filters.revenue_max|default:'' }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dynamic Content Panel -->
+        <div class="col-lg-9 mb-4">
+            <div id="dashboard-content">
+                {% include 'dashboard/partials/dashboard_content.html' %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

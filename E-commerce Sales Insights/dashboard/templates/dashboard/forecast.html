@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sales Forecast - E-commerce Insights{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 text-secondary-color"><i class="fas fa-chart-line text-purple me-2"></i> ML Sales Forecasting</h1>
+</div>
+
+{% if no_data %}
+<div class="alert alert-warning shadow-sm border-0">
+    <div class="d-flex align-items-center">
+        <i class="fas fa-exclamation-triangle fa-2x me-3 text-warning"></i>
+        <div>
+            <h5 class="alert-heading mb-1">No Active Dataset</h5>
+            <p class="mb-0">Please upload or activate a dataset to generate a forecast.</p>
+        </div>
+    </div>
+</div>
+{% else %}
+
+<div class="alert alert-info shadow-sm border-0 mb-4 bg-info-subtle text-info-emphasis">
+    <i class="fas fa-info-circle me-2"></i> 
+    <strong>Educational Demo:</strong> This forecast uses a Simple Linear Regression model based on historical monthly sales data. It is intended for demonstration purposes and does not account for complex seasonality or external market factors.
+</div>
+
+{% if forecast_meta %}
+<div class="alert {% if forecast_meta.has_enough_history %}alert-success{% else %}alert-warning{% endif %} shadow-sm border-0 mb-4">
+    <i class="fas fa-chart-area me-2"></i>
+    <strong>Forecast Confidence: {{ forecast_meta.confidence }}.</strong>
+    {{ forecast_meta.note }}
+</div>
+{% endif %}
+
+<div class="row g-4 mb-4">
+    <!-- Chart -->
+    <div class="col-lg-8">
+        <div class="chart-container glass-card h-100">
+            <div id="forecastChart"></div>
+        </div>
+    </div>
+    
+    <!-- Explanation -->
+    <div class="col-lg-4">
+        <div class="glass-card h-100 border-start border-purple border-4">
+            <h5 class="text-secondary-color mb-3"><i class="fas fa-brain text-purple me-2"></i> Prediction Logic</h5>
+            <p class="text-secondary small">
+                Our forecasting engine analyzes your historical transaction data and groups it by month to identify underlying sales trends.
+            </p>
+            <p class="text-secondary small">
+                We then apply a <strong>Linear Regression</strong> algorithm from <code>scikit-learn</code> to map these trends against a time index. This allows the system to project the trajectory of your revenue for the next 3 months.
+            </p>
+            <p class="text-secondary small">
+                Additionally, the engine identifies your historically best-selling product and top-performing category, predicting their specific demand trajectories using the same regression techniques.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Forecast Table -->
+<div class="glass-card mb-4">
+    <h5 class="text-secondary-color mb-3">Forecast Projections (Next 3 Months)</h5>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Period (Month)</th>
+                    <th>Projected Total Revenue</th>
+                    <th>Top Category Trend</th>
+                    <th>Top Product Demand</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in forecast %}
+                <tr>
+                    <td class="fw-bold"><i class="fas fa-calendar-alt text-purple me-2"></i>{{ item.period }}</td>
+                    <td class="text-success fw-bold">Rs {{ item.predicted_revenue|floatformat:2 }}</td>
+                    <td>
+                        <span class="d-block small text-muted">{{ item.top_category }}</span>
+                        <span class="fw-semibold text-info">Rs {{ item.predicted_category_revenue|floatformat:2 }}</span>
+                    </td>
+                    <td>
+                        <span class="d-block small text-muted">{{ item.top_product }}</span>
+                        <span class="fw-semibold text-warning">{{ item.predicted_product_demand }} units</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if forecast_meta.monthly_history %}
+<div class="glass-card mb-4">
+    <h5 class="text-secondary-color mb-3">Recent Historical Revenue</h5>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Historical Month</th>
+                    <th>Actual Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in forecast_meta.monthly_history %}
+                <tr>
+                    <td class="fw-bold">{{ item.period }}</td>
+                    <td class="text-success fw-bold">Rs {{ item.revenue|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% if forecast_chart %}
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script type="application/json" id="forecast-chart-json">{{ forecast_chart|safe }}</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dataElem = document.getElementById('forecast-chart-json');
+        if (dataElem) {
+            try {
+                const chartJson = JSON.parse(dataElem.textContent);
+                Plotly.newPlot('forecastChart', chartJson.data, chartJson.layout, { 
+                    responsive: true, 
+                    displayModeBar: true, 
+                    displaylogo: false,
+                    modeBarButtonsToRemove: ['lasso2d', 'select2d', 'autoScale2d']
+                }).then(() => {
+                    if (window.refreshPlotlyTheme) {
+                        window.refreshPlotlyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+                    }
+                });
+            } catch (e) {
+                console.error("Error parsing chart JSON:", e);
+            }
+        }
+    });
+    document.addEventListener('theme:changed', function(event) {
+        if (window.refreshPlotlyTheme) {
+            window.refreshPlotlyTheme(event.detail.theme);
+        }
+    });
+</script>
+{% endif %}
+
+{% endif %}
+{% endblock %}

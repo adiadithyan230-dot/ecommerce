@@ -1,0 +1,56 @@
+erDiagram
+    CUSTOM_USER ||--o{ DATASET : uploads
+    CUSTOM_USER ||--o{ SAVED_FILTER_VIEW : saves
+    CUSTOM_USER ||--o{ AUDIT_LOG : performs
+    CUSTOM_USER }o--o{ AUTH_GROUP : belongs_to
+    CUSTOM_USER }o--o{ AUTH_PERMISSION : has_permission
+
+    CUSTOM_USER {
+        bigint id PK
+        int user_id UK
+        string username UK
+        string email
+        string role
+        string bio
+        string location
+        boolean is_active
+        boolean is_staff
+        datetime date_joined
+    }
+    DATASET {
+        bigint id PK
+        string name
+        string file
+        datetime uploaded_at
+        bigint uploaded_by_id FK
+        int row_count
+        int column_count
+        int quality_score
+        string quality_grade
+        boolean is_active
+        text summary
+    }
+    SAVED_FILTER_VIEW {
+        bigint id PK
+        bigint user_id FK
+        string name
+        text query_string
+        datetime created_at
+    }
+    AUDIT_LOG {
+        bigint id PK
+        bigint actor_id FK
+        string action
+        string target
+        text details
+        datetime created_at
+    }
+    AUTH_GROUP {
+        int id PK
+        string name
+    }
+    AUTH_PERMISSION {
+        int id PK
+        string codename
+        string name
+    }

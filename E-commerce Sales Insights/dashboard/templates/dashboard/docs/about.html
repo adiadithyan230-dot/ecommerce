@@ -1,0 +1,53 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Project - E-commerce Insights{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 text-secondary-color"><i class="fas fa-info-circle text-info me-2"></i> About Project</h1>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="glass-card mb-4 border-start border-info border-4">
+            <h4 class="text-secondary-color mb-3">1. Introduction</h4>
+            <p class="text-secondary">
+                The E-commerce Sales Insights Platform is a robust, enterprise-ready web application designed to help businesses analyze, visualize, and forecast their sales data. Moving beyond static scripts, this platform provides a dynamic dashboard where business users can explore KPIs, interact with responsive charts, and extract actionable insights without needing data science expertise.
+            </p>
+        </div>
+
+        <div class="glass-card mb-4 border-start border-warning border-4">
+            <h4 class="text-secondary-color mb-3">2. Problem Statement</h4>
+            <p class="text-secondary">
+                Many small to medium enterprises struggle with raw transactional data trapped in CSV or Excel files. Manually calculating key performance indicators (KPIs) and predicting future sales trends is time-consuming and prone to human error. There is a need for an automated, centralized system that ingests data, flags anomalies, and presents clean visual insights.
+            </p>
+        </div>
+
+        <div class="glass-card mb-4 border-start border-success border-4">
+            <h4 class="text-secondary-color mb-3">3. Solution & Objectives</h4>
+            <ul class="list-group list-group-flush bg-transparent">
+                <li class="list-group-item bg-transparent text-secondary border-0"><i class="fas fa-check text-success me-2"></i><strong>Centralized Data Management:</strong> Secure, multi-user environment where analysts can upload and manage multiple datasets.</li>
+                <li class="list-group-item bg-transparent text-secondary border-0"><i class="fas fa-check text-success me-2"></i><strong>Automated Data Cleaning:</strong> Detects and reports anomalies such as missing values, incorrect data types, and negative revenues.</li>
+                <li class="list-group-item bg-transparent text-secondary border-0"><i class="fas fa-check text-success me-2"></i><strong>Dynamic Data Visualization:</strong> Replaces static images with interactive Plotly graphs capable of zooming, tooltips, and data exporting.</li>
+                <li class="list-group-item bg-transparent text-secondary border-0"><i class="fas fa-check text-success me-2"></i><strong>AI-Free Business Insights:</strong> Automatically translates data metrics into readable executive summaries using a rule-based engine.</li>
+                <li class="list-group-item bg-transparent text-secondary border-0"><i class="fas fa-check text-success me-2"></i><strong>Sales Forecasting:</strong> Uses scikit-learn's Linear Regression to predict future revenue and product demand based on historical trends.</li>
+            </ul>
+        </div>
+        
+        <div class="glass-card mb-4 border-start border-primary border-4">
+            <h4 class="text-secondary-color mb-3">4. Technology Stack</h4>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="badge bg-primary fs-6">Python 3.12</span>
+                <span class="badge bg-success fs-6">Django 6</span>
+                <span class="badge bg-info fs-6">Pandas</span>
+                <span class="badge bg-warning text-dark fs-6">Scikit-learn</span>
+                <span class="badge bg-secondary fs-6">Plotly.js</span>
+                <span class="badge bg-dark fs-6">Bootstrap 5</span>
+                <span class="badge bg-danger fs-6">HTMX</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

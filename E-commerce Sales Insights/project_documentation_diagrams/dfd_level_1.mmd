@@ -1,0 +1,30 @@
+flowchart TB
+    U[Admin / Analyst / Viewer]
+    P1[1. Registration and Login]
+    P2[2. User and Role Management]
+    P3[3. Dataset Management]
+    P4[4. Analytics Dashboard]
+    P5[5. Forecast, Insights, Reports and API]
+    D1[(CustomUser)]
+    D2[(Dataset)]
+    D3[(SavedFilterView)]
+    D4[(AuditLog)]
+    D5[(Uploaded CSV Files)]
+
+    U --> P1
+    P1 <--> D1
+    U --> P2
+    P2 <--> D1
+    P2 --> D4
+    U --> P3
+    P3 <--> D2
+    P3 <--> D5
+    P3 --> D4
+    U --> P4
+    P4 <--> D2
+    P4 <--> D3
+    P4 --> U
+    U --> P5
+    P5 <--> D2
+    P5 --> D4
+    P5 --> U

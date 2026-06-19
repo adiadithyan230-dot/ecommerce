@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Viva Q&A - E-commerce Insights{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 text-secondary-color"><i class="fas fa-question-circle text-info me-2"></i> Viva Questions and Answers</h1>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="accordion" id="vivaAccordion">
+            
+            <div class="accordion-item glass-card mb-3 border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-secondary-color fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                        Q1: What is the main purpose of this project?
+                    </button>
+                </h2>
+                <div id="q1" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+                    <div class="accordion-body text-secondary">
+                        <strong>A:</strong> The main purpose is to provide an enterprise-ready SaaS platform that ingests e-commerce CSV data, cleans it, calculates KPIs, and generates interactive visualizations and ML-based forecasts, helping business users make informed decisions.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card mb-3 border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-secondary-color fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                        Q2: Which web framework did you use and why?
+                    </button>
+                </h2>
+                <div id="q2" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+                    <div class="accordion-body text-secondary">
+                        <strong>A:</strong> I used Django because it is a high-level Python framework that encourages rapid development and clean design. It comes with built-in security features, an ORM, and integrates seamlessly with Python data science libraries like Pandas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card mb-3 border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-secondary-color fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                        Q3: How are the charts made interactive?
+                    </button>
+                </h2>
+                <div id="q3" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+                    <div class="accordion-body text-secondary">
+                        <strong>A:</strong> The charts are generated using Plotly. Plotly creates JSON configurations in Python, which are then parsed and rendered dynamically on the frontend using Plotly.js, allowing for tooltips, zooming, and downloading without page reloads.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card mb-3 border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-secondary-color fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                        Q4: How does the application handle data filtering without reloading the page?
+                    </button>
+                </h2>
+                <div id="q4" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+                    <div class="accordion-body text-secondary">
+                        <strong>A:</strong> It uses HTMX. When a user changes a filter in the sidebar, a background request is sent to the server. The server processes the filtered dataframe and returns a partial HTML response containing the updated charts and tables, which HTMX swaps into the DOM seamlessly.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card mb-3 border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-secondary-color fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                        Q5: What machine learning algorithm is used for forecasting?
+                    </button>
+                </h2>
+                <div id="q5" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+                    <div class="accordion-body text-secondary">
+                        <strong>A:</strong> Simple Linear Regression from the <code>scikit-learn</code> library. It maps historical monthly revenues against a time index to plot a trend line and project future values.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card mb-3 border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-secondary-color fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q6">
+                        Q6: Explain the "AI-Free Insight Generator".
+                    </button>
+                </h2>
+                <div id="q6" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+                    <div class="accordion-body text-secondary">
+                        <strong>A:</strong> Instead of relying on expensive or unpredictable Generative AI, the Insight Generator uses a rule-based engine. It analyzes the calculated KPIs (like cancellation rates > 15% or negative monthly growth) and constructs human-readable sentences using standard Python <code>if/else</code> logic.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card mb-3 border-0">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-secondary-color fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q7">
+                        Q7: How did you ensure data quality during CSV uploads?
+                    </button>
+                </h2>
+                <div id="q7" class="accordion-collapse collapse" data-bs-parent="#vivaAccordion">
+                    <div class="accordion-body text-secondary">
+                        <strong>A:</strong> The <code>cleaning_engine.py</code> script automatically standardizes column headers, fills or drops missing values based on data types, drops duplicates, and validates that all required columns are present. It also flags incorrect data types and invalid dates.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
